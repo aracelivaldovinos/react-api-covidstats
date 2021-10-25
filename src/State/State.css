@@ -1,0 +1,20 @@
+.cases{
+  background-color: #fcbf49;
+  text-align: center;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.recovered{
+  background-color: #7cb518;
+  text-align: center;
+  border-radius: 5px;
+  width: 50%;
+}
+
+.deaths{
+  background-color: #d00000;
+  text-align: center;
+  border-radius: 5px;
+  width: 50%;
+}
