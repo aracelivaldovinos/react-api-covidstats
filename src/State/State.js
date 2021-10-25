@@ -12,9 +12,11 @@ const State = () => {
   const handleChange = (e) => {
     setSearch(e.target.value)
   }
-  const infectedCases = cases.cases;
-  const recoveredCases = cases.recovered;
-  const deathCases = cases.deaths;
+
+  // const infectedCases = cases.cases;
+  // const recoveredCases = cases.recovered;
+  // const deathCases = cases.deaths;
+  
 
   return ( 
     <Container>
@@ -30,18 +32,17 @@ const State = () => {
               onChange = {handleChange}
               required/>
           </div>
-          <div className="h-100 p-5 text-white bg-dark rounded-3">
+          <div className="h-50 p-5 text-white bg-dark rounded-3">
             <Row>
               <Col>
-              {cases &&
               <PieChart
                 data={[
-                  { title: 'One', value: infectedCases, color: '#fcbf49' },
-                  { title: 'Two', value: recoveredCases, color: '#7cb518' },
-                  { title: 'Three', value: deathCases, color: '#d00000' },
+                  { title: 'One', value: 4210472, color: '#fcbf49' },
+                  { title: 'Two', value: 4016740, color: '#7cb518' },
+                  { title: 'Three', value: 70720, color: '#d00000' },
                 ]}
-              />
-              }
+                style={{ height: '50%' }}/>
+              
               </Col>
               <Col>
               {cases &&
