@@ -18,3 +18,17 @@
   border-radius: 5px;
   width: 50%;
 }
+
+.state{
+  background-color: rgba(231, 231, 231, 0.5);
+}
+
+.state-name{
+  text-align: center;
+}
+
+#state-row{
+  width: 100%;
+  overflow: hidden;
+}
+
