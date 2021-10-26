@@ -1,0 +1,21 @@
+.item{
+  border-bottom: 1px solid #fafafa;
+  padding: 10px 16px;
+  overflow: scroll;
+}
+
+.item:hover{
+  box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+}
+
+.item h5{
+  font-weight: bold;
+}
+
+.item-cases{
+  color: #fcbf49;
+}
+
+.item-deaths{
+  color: #d00000;
+}

@@ -3,20 +3,22 @@ import { Container, Row, Col } from 'react-bootstrap';
 import { PieChart } from 'react-minimal-pie-chart';
 import StateDetails from '../StateDetails/StateDetails';
 import useFetch from "../useFetch/useFetch";
+import USMap from '../USMap/USMap';
 import './State.css'
 
 
 const State = () => {
-  const [search, setSearch] = useState('Texas')
+  const [searchState, setSearchState] = useState('Texas')
+  const [searchCounty, setSearchCounty] = useState('Dallas')
 
-  const {data: cases, error, loading} = useFetch(`https://disease.sh/v3/covid-19/states/${search}`)
-  console.log(cases)
-
-  const {data:details} = useFetch('https://disease.sh/v3/covid-19/nyt/counties/Dallas?lastdays=15')
-  console.log(details)
-
-  const handleChange = (e) => {
-    setSearch(e.target.value)
+  const {data: cases, error, loading} = useFetch(`https://disease.sh/v3/covid-19/states/${searchState}`);
+  const {data:details} = useFetch(`https://disease.sh/v3/covid-19/nyt/counties/${searchCounty}?lastdays=15`);
+  
+  const handleStateChange = (e) => {
+    setSearchState(e.target.value)
+  }
+  const handleCountyChange = (e) => {
+    setSearchCounty(e.target.value)
   }
 
   // const infectedCases = cases.cases;
@@ -27,17 +29,10 @@ const State = () => {
   return ( 
     <Container>
       <Row>
-        <div className="state">
+        {/* <div className="state"> */}
           <h1>COVID-19</h1>
-          <div className="search-state">
-            <input 
-              type="text"
-              placeholder="Please enter state"
-              value = {search}
-              onChange = {handleChange}
-              required/>
-          </div>
-          <div className="h-75 p-3 text-white bg-dark rounded-3 center" id="state-row">
+          <Col>
+          <div className="h-100 p-3 text-white bg-dark rounded-3 center" id="state-row">
             <Row>
               {cases && <div className="state-name"><h1>{cases.state}</h1></div>}
               <Col>
@@ -69,13 +64,37 @@ const State = () => {
               </Col>
             </Row>
           </div>
-          
-          
+          </Col>
+          <Col>
+          <USMap />
+          </Col>
           {/* {error && <div>{error}</div>} */}
           {loading && <div>Loading...</div>}
-        </div>
+          <Row>
+            <Col>
+            <label>County:</label>
+            <input 
+              type="text"
+              placeholder="State"
+              className= "form-control"
+              value = {searchCounty}
+              onChange = {handleCountyChange}
+              required/>
+              </Col>
+              <Col>
+              <label>State:</label>
+              <input 
+              type="text"
+              placeholder="County"
+              className="form-control"
+              value = {searchState}
+              onChange = {handleStateChange}
+              required/>
+              </Col>
+          </Row>
+        {/* </div> */}
       </Row>
-      {details && <StateDetails details= {details.filter((item) =>item.state === search)}/> }
+      {details && <StateDetails details= {details.filter((item) =>item.state === searchState)}/> }
     </Container>
    );
 }
