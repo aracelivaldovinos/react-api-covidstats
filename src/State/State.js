@@ -2,9 +2,11 @@ import {useState} from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import { PieChart } from 'react-minimal-pie-chart';
 import StateDetails from '../StateDetails/StateDetails';
+import Cases from '../Cases/Cases';
 import useFetch from "../useFetch/useFetch";
 import USMap from '../USMap/USMap';
 import './State.css'
+
 
 
 const State = () => {
@@ -12,11 +14,12 @@ const State = () => {
   const [searchCounty, setSearchCounty] = useState('Dallas')
 
   const {data: cases, error, loading} = useFetch(`https://disease.sh/v3/covid-19/states/${searchState}`);
-  const {data:details} = useFetch(`https://disease.sh/v3/covid-19/nyt/counties/${searchCounty}?lastdays=15`);
+  const {data:details} = useFetch(`https://disease.sh/v3/covid-19/nyt/counties/${searchCounty}?lastdays=5`);
   
   const handleStateChange = (e) => {
     setSearchState(e.target.value)
   }
+
   const handleCountyChange = (e) => {
     setSearchCounty(e.target.value)
   }
@@ -28,50 +31,39 @@ const State = () => {
 
   return ( 
     <Container>
+      <div className="state">
       <Row>
-        {/* <div className="state"> */}
-          <h1>COVID-19</h1>
-          <Col>
+        <h1>COVID-19</h1>
+        <Col>
           <div className="h-100 p-3 text-white bg-dark rounded-3 center" id="state-row">
             <Row>
               {cases && <div className="state-name"><h1>{cases.state}</h1></div>}
               <Col>
-              <PieChart
-                data={[
-                  { title: 'One', value: 4210472, color: '#fcbf49' },
-                  { title: 'Two', value: 4016740, color: '#7cb518' },
-                  { title: 'Three', value: 70720, color: '#d00000' },
-                ]}
-                style={{ height: '75%' }}/>
+                <PieChart
+                  data={[
+                    { title: 'One', value: 4210472, color: '#fcbf49' },
+                    { title: 'Two', value: 4016740, color: '#7cb518' },
+                    { title: 'Three', value: 70720, color: '#d00000' },
+                  ]}
+                  style={{ height: '75%' }}/>
               </Col>
               <Col>
-              {cases &&
-                <div>
-                  <div className="cases">
-                    <h2>{cases.cases}</h2>
-                    <p>Infected Cases</p>
-                  </div>
-                  <div className="recovered">
-                    <h2>{cases.recovered}</h2>
-                    <p>Recovered Cases</p>
-                  </div>
-                  <div className="deaths">
-                    <h2>{cases.deaths}</h2>
-                    <p>Death Cases</p>
-                  </div>
-                </div>
-              }
+                <Cases cases={cases}/>
               </Col>
             </Row>
           </div>
-          </Col>
+        </Col>
+        <Col>
+          <div className="h-100 p-3 text-white rounded-3 center" id="map-row">
+            <USMap />
+          </div>
+        </Col>
+      </Row>
+      </div>
+      <Row>
+        <Col>
+        <Row>
           <Col>
-          <USMap />
-          </Col>
-          {/* {error && <div>{error}</div>} */}
-          {loading && <div>Loading...</div>}
-          <Row>
-            <Col>
             <label>County:</label>
             <input 
               type="text"
@@ -80,21 +72,24 @@ const State = () => {
               value = {searchCounty}
               onChange = {handleCountyChange}
               required/>
-              </Col>
-              <Col>
-              <label>State:</label>
-              <input 
+          </Col>
+          <Col>
+            <label>State:</label>
+            <input 
               type="text"
               placeholder="County"
               className="form-control"
               value = {searchState}
               onChange = {handleStateChange}
               required/>
-              </Col>
-          </Row>
-        {/* </div> */}
+          </Col>
+        </Row> 
+        {details && <StateDetails details= {details.filter((item) =>item.state === searchState)}/> }
+        </Col>
+        <Col>
+          <h1>Stats</h1>
+        </Col>
       </Row>
-      {details && <StateDetails details= {details.filter((item) =>item.state === searchState)}/> }
     </Container>
    );
 }
