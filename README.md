@@ -1,4 +1,4 @@
-# Covid & Vaccine State
+# Covid & Vaccine Stats
 
 #### A website that displays Covid & Vaccine stats for each  county & state
 
