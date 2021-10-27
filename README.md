@@ -13,7 +13,7 @@
 
 
 ## Description
-_A website that displays Covid19 & Vaccine Stats for each county & state to practice building a React applicatin with React Hooks and fetching API. API for this applcation is used from [NOVEL CoVID19 API website](https://disease.sh/docs/)_
+_A website that displays Covid19 & Vaccine Stats for each county & state to practice building a React applicatin with React Hooks and fetching API. API for this applcation is used from [NOVEL CoVID19 API website](https://disease.sh/docs/)._
 
 ## Setup/Installation Requirements
 
