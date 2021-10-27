@@ -5,13 +5,15 @@ import {
   Geographies,
   Geography,
   Marker,
-  Annotation
+  Annotation,
+  ZoomableGroup
 } from "react-simple-maps";
 import useFetch from "../useFetch/useFetch";
 import './USMap.css'
 
 const USMap = () => {
   const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
+  console.log(geoUrl)
   const {data:db} = useFetch(` http://localhost:8000/states`);
 
   const offsets = {
@@ -29,6 +31,7 @@ const USMap = () => {
   return ( 
     <div className="map">
       <ComposableMap projection="geoAlbersUsa">
+      <ZoomableGroup>
       <Geographies geography={geoUrl}>
         { ({ geographies }) => (
           <>
@@ -52,6 +55,7 @@ const USMap = () => {
                       <Marker coordinates={centroid}>
                         <text y="2" fontSize={14} textAnchor="middle">
                           {cur.id}
+                          {/* {cur.state} */}
                         </text>
                       </Marker>
                     ) : (
@@ -62,6 +66,7 @@ const USMap = () => {
                       >
                         <text x={4} fontSize={14} alignmentBaseline="middle">
                           {cur.id}
+                          {/* {cur.state} */}
                         </text>
                       </Annotation>
                     ))}
@@ -71,6 +76,7 @@ const USMap = () => {
           </>
         )}
       </Geographies>
+      </ZoomableGroup>
       </ComposableMap>
     </div>
    );

@@ -3,8 +3,10 @@
   background-color: rgba(231, 231, 231, 0.5);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
-  padding: 20px;
-  
+}
+
+.state h1{
+  padding-bottom: 20px;
 }
 
 .state-name{
@@ -22,7 +24,7 @@
   background-color: lightskyblue;
 }
 
-/* .form-control{
-  height: 100%;
-} */
+.search-form{
+  padding: 20px;
+}
 

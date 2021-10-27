@@ -2,8 +2,7 @@ import useFetch from "../useFetch/useFetch";
 import './Vaccine.css'
 import {Row, Col} from "react-bootstrap";
 
-const Vaccine = () => {
-  const {data:vaccine} = useFetch('https://disease.sh/v3/covid-19/vaccine/coverage/states/Texas?lastdays=5&fullData=true')
+const Vaccine = ({vaccine}) => {
   // console.log(vaccine)
 
   return ( 
