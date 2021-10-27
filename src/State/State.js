@@ -5,6 +5,7 @@ import StateDetails from '../StateDetails/StateDetails';
 import Cases from '../Cases/Cases';
 import useFetch from "../useFetch/useFetch";
 import USMap from '../USMap/USMap';
+import Vaccine from '../Vaccine/Vaccine';
 import './State.css'
 
 
@@ -12,9 +13,10 @@ import './State.css'
 const State = () => {
   const [searchState, setSearchState] = useState('Texas')
   const [searchCounty, setSearchCounty] = useState('Dallas')
-
+  const {data: states} = useFetch(`https://disease.sh/v3/covid-19/states`);
+  const {data: counties} = useFetch(`https://disease.sh/v3/covid-19/nyt/counties`);
   const {data: cases, error, loading} = useFetch(`https://disease.sh/v3/covid-19/states/${searchState}`);
-  const {data:details} = useFetch(`https://disease.sh/v3/covid-19/nyt/counties/${searchCounty}?lastdays=5`);
+  const {data:details} = useFetch(`https://disease.sh/v3/covid-19/nyt/counties/${searchCounty}?lastdays=1`);
   
   const handleStateChange = (e) => {
     setSearchState(e.target.value)
@@ -34,6 +36,28 @@ const State = () => {
       <div className="state">
       <Row>
         <h1>COVID-19</h1>
+        <Row>
+          <Col>
+            <label>County:</label>
+            <input 
+              type="text"
+              placeholder="State"
+              className= "form-control"
+              value = {searchCounty} 
+              onChange = {handleCountyChange}
+              required/>
+          </Col>
+          <Col>
+            <label>State:</label>
+            <input 
+              type="text"
+              placeholder="County"
+              className="form-control"
+              value = {searchState}
+              onChange = {handleStateChange}
+              required/>
+          </Col>
+        </Row> 
         <Col>
           <div className="h-100 p-3 text-white bg-dark rounded-3 center" id="state-row">
             <Row>
@@ -62,32 +86,11 @@ const State = () => {
       </div>
       <Row>
         <Col>
-        <Row>
-          <Col>
-            <label>County:</label>
-            <input 
-              type="text"
-              placeholder="State"
-              className= "form-control"
-              value = {searchCounty}
-              onChange = {handleCountyChange}
-              required/>
-          </Col>
-          <Col>
-            <label>State:</label>
-            <input 
-              type="text"
-              placeholder="County"
-              className="form-control"
-              value = {searchState}
-              onChange = {handleStateChange}
-              required/>
-          </Col>
-        </Row> 
         {details && <StateDetails details= {details.filter((item) =>item.state === searchState)}/> }
         </Col>
         <Col>
           <h1>Stats</h1>
+          <Vaccine />
         </Col>
       </Row>
     </Container>
